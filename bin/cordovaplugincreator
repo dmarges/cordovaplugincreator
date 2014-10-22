@@ -1,0 +1,62 @@
+#! /usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__) + '/../lib')
+require 'optparse'
+require 'PluginDirectory.rb'
+require 'PluginFiles.rb'
+require 'PluginExampleApp.rb'
+
+options = {}
+
+option_parser = OptionParser.new do | opts |
+  opts.on("-n NAME") do | name |
+    options[:name] = name
+  end
+
+  opts.on("-p PATH") do | path |
+    options[:path] = path
+  end
+
+  opts.on("-b BUNDLE") do | bundle_id |
+    if bundle_id
+      options[:bundle_id] = bundle_id
+    else
+      options[:bundle_id] = "com.yourcompany"
+    end
+  end
+
+  opts.on("-v","--verbose") do
+    options[:verbose] = true
+  end
+end
+
+option_parser.parse!
+
+if options[:name] && options[:path]
+
+  plugin_directory = PluginDirectory.new options
+
+  plugin_directory.create_root_directory_for_plugin
+  plugin_directory.create_plugin_directory_structure
+
+
+  plugin_files = PluginFiles.new options
+
+  plugin_files.create_plugin_xml_file
+  plugin_files.create_plugin_readme
+  plugin_files.create_package_file
+  plugin_files.create_ios_header_file
+  plugin_files.create_ios_implementation_file
+  plugin_files.create_android_source_file
+  plugin_files.create_javascript_source_file
+
+
+  plugin_example = PluginExampleApp.new options
+
+  plugin_example.create_example_app_for_testing
+  plugin_example.install_plugin
+  plugin_example.build_example_app
+
+else
+  puts "A valid plugin name AND path are required"
+end
