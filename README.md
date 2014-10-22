@@ -12,19 +12,27 @@ such as Windows Phone and BlackBerry but could be added in the future.
 
 ###Installation:
 
-From your prompt just type "gem install cordovaplugincreator"
-
+From your prompt just run
+```shell
+"gem install cordovaplugincreator"
+```
 
 ###Arguments:
 -n = Name - Name of your plugin                                     *required
+
 -p = Path - Path where your plugin will reside                      *required
+
 -b = Bundle ID - The "com.yourcompany" used in the config files     *optional
+
 -v --verbose = Verbose - Used for debugging                         *optional
 
 
 ###Usage:
 
-From your prompt you can run "cordovaplugincreator -n nameofyourplugin -p /path/for/your/plugin -b com.yourcompany
+From your prompt you can run
+```shell
+cordovaplugincreator -n nameofyourplugin -p /path/for/your/plugin -b com.yourcompany
+```
 
 
 
